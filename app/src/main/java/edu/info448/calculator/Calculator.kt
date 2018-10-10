@@ -10,7 +10,7 @@ class Calculator {
 
     // Available operations
     enum class Operator {
-        ADD, SUB, DIV, MUL
+        ADD, SUB, DIV, MUL, RES
     }
 
     init {
@@ -49,7 +49,14 @@ class Calculator {
      * Multiply operation
      */
     fun mul(operand: Double): Double {
-        value /= operand
+        value *= operand //FIXED /= INTO *=
+        return value
+    }
+
+    /**
+     * Reset operation
+     */
+    fun res(): Double {
         return value
     }
 }

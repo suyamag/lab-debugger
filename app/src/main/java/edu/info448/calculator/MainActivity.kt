@@ -39,7 +39,7 @@ class MainActivity : Activity() {
         val divButton = findViewById(R.id.operation_div_btn) as Button
         divButton.setOnClickListener {
             try {
-                compute(Calculator.Operator.MUL)
+                compute(Calculator.Operator.DIV)//FIXED MUL TO DIV
             } catch (iae: IllegalArgumentException) {
                 Log.e(TAG, "IllegalArgumentException", iae)
                 mResultTextView!!.text = getString(R.string.computationError)
@@ -50,7 +50,7 @@ class MainActivity : Activity() {
         mulButton.setOnClickListener { compute(Calculator.Operator.MUL) }
 
         val resetButton = findViewById(R.id.reset_btn) as Button
-        resetButton.setOnClickListener { mResultTextView!!.setText(R.string.initial_result_text) }
+        resetButton.setOnClickListener { compute(Calculator.Operator.RES) } //FIXED mResultTextView!!.setText(R.string.initial_result_text) into compute
     }
 
 
@@ -67,10 +67,11 @@ class MainActivity : Activity() {
         val result: String
         when (operator) {
             Calculator.Operator.ADD -> result = mCalculator!!.add(operand).toString()
-            Calculator.Operator.SUB -> result = getString(R.string.computationError)
+            Calculator.Operator.SUB -> result = mCalculator!!.sub(operand).toString()//FIXED getString(R.string.computationError) into mCalc...
             Calculator.Operator.DIV -> result = mCalculator!!.div(operand).toString()
             Calculator.Operator.MUL -> result = mCalculator!!.mul(operand).toString()
-            else -> result = getString(R.string.computationError)
+            Calculator.Operator.RES -> result = mCalculator!!.res().toString()
+            //else -> result = getString(R.string.computationError)
         }
         mResultTextView!!.text = result
         mOperandEditText!!.text = null
